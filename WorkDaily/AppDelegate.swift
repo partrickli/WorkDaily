@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        let homeController = LogsController(collectionViewLayout: UICollectionViewFlowLayout())
+        let homeController = LogsController()
         homeController.stateController = StateController(storageController: StorageController())
         let navigationController = UINavigationController(rootViewController: homeController)
         

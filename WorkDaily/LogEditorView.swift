@@ -16,8 +16,8 @@ class LogEditorView: UIView {
             guard let name = nameTextField.text else {
                 return nil
             }
-            let start = Date()
-            let end = Date()
+            let start = startDatePicker.date
+            let end = endDatePicker.date
             let selectedCategry = Log.Category.all[categorySegmentedControll.selectedSegmentIndex]
             let selectedService = Log.Service.all[serviceSegmentedControll.selectedSegmentIndex]
             return Log(name: name, start: start, end: end, category: selectedCategry, service: selectedService)
@@ -55,7 +55,7 @@ class LogEditorView: UIView {
             stackView.addArrangedSubview(view)
         }
         stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.alignment = .center
+        stackView.alignment = .fill
         stackView.distribution = .fillProportionally
         stackView.spacing = 20
         stackView.axis = .vertical

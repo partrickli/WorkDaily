@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LogsController: UICollectionViewController {
+class LogsController: UITableViewController {
     
     enum reuseIdentifier: String {
         case logCell
@@ -24,12 +24,16 @@ class LogsController: UICollectionViewController {
         
         title = "工作记录"
         
-        collectionView?.register(LogCell.self, forCellWithReuseIdentifier: reuseIdentifier.logCell.rawValue)
+        tableView.register(LogCell.self, forCellReuseIdentifier: reuseIdentifier.logCell.rawValue)
         
         // Right side bar buttom item for adding new work log
 
         let newLogBarButton = UIBarButtonItem(image: #imageLiteral(resourceName: "add"), style: .done, target: self, action: #selector(addNewLog))
         navigationItem.rightBarButtonItem = newLogBarButton
+        
+        // Auto resize table view cell height
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableViewAutomaticDimension
         
     }
     
@@ -37,14 +41,25 @@ class LogsController: UICollectionViewController {
         return UIStatusBarStyle.lightContent
     }
     
-    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return stateController?.logs.count ?? 0
     }
     
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier.logCell.rawValue, for: indexPath) as! LogCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier.logCell.rawValue, for: indexPath) as! LogCell
         cell.log = stateController?.logs[indexPath.item]
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            stateController?.logs.remove(at: indexPath.row)
+            tableView.reloadData()
+        }
     }
     
     // adding new work log
@@ -67,7 +82,7 @@ extension LogsController: UICollectionViewDelegateFlowLayout {
 extension LogsController: LogEditorControllerDelegate {
     func save(log: Log) {
         stateController?.add(log)
-        collectionView?.reloadData()
+        tableView?.reloadData()
     }
 
 }

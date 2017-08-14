@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LogCell: UICollectionViewCell {
+class LogCell: UITableViewCell {
     
     var log: Log? {
         didSet {
@@ -17,6 +17,8 @@ class LogCell: UICollectionViewCell {
             categoryLabel.backgroundColor = UIColor(category: log?.category ?? .construct)
             serviceLabel.text = log?.service.rawValue.spaceFilled
             serviceLabel.backgroundColor = UIColor(category: log?.category ?? .construct)
+            startDateLabel.text = " \(log?.start.formatted ?? "") "
+            endDateLabel.text = " \(log?.end.formatted ?? "") "
         }
     }
     
@@ -27,26 +29,17 @@ class LogCell: UICollectionViewCell {
     }
     
     
-    let startDateLabel: UILabel = make { l in
+    let startDateLabel: DateLabel = make { l in
         
         let today = Date()
         l.text = "\(today.formatted) "
-        l.font = UIFont.boldSystemFont(ofSize: 14)
-        l.textColor = .white
-        l.backgroundColor = UIColor.dateLabelColor
-        l.layer.cornerRadius = 5
-        l.layer.masksToBounds = true
+
     }
     
-    let endDateLabel: UILabel = make { l in
+    let endDateLabel: DateLabel = make { l in
         
         let today = Date() + 3600 * 24
         l.text = " " + today.formatted + " "
-        l.font = UIFont.boldSystemFont(ofSize: 14)
-        l.textColor = .white
-        l.backgroundColor = UIColor.dateLabelColor
-        l.layer.cornerRadius = 5
-        l.layer.masksToBounds = true
     }
     
     let categoryLabel: UILabel = make { l in
@@ -68,12 +61,12 @@ class LogCell: UICollectionViewCell {
     }
 
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         backgroundColor = .white
         
-        let dateStackView = UIStackView(arrangedSubviews: [startDateLabel, endDateLabel])
+        let dateStackView = UIStackView(arrangedSubviews: [startDateLabel, endDateLabel, categoryLabel])
         dateStackView.axis = .horizontal
         dateStackView.spacing = 10
         dateStackView.distribution = .equalCentering
@@ -93,12 +86,13 @@ class LogCell: UICollectionViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .fill
-        stackView.spacing = 5
+        stackView.spacing = 10
+        let insetWidth: CGFloat = 15
         let stackViewConstraints = [
-            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            stackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 10),
-            stackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -10),
-            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
+            stackView.topAnchor.constraint(equalTo: topAnchor, constant: insetWidth),
+            stackView.leftAnchor.constraint(equalTo: leftAnchor, constant: insetWidth),
+            stackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -insetWidth),
+            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -insetWidth)
         ]
         NSLayoutConstraint.activate(stackViewConstraints)
         
@@ -107,9 +101,21 @@ class LogCell: UICollectionViewCell {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    private func setupViews() {
         
+}
+
+class DateLabel: UILabel {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        font = UIFont.boldSystemFont(ofSize: 16)
+        textColor = .white
+        backgroundColor = UIColor.dateLabelColor
+        layer.cornerRadius = 5
+        layer.masksToBounds = true
     }
     
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

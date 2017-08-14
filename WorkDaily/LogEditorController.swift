@@ -23,7 +23,7 @@ class LogEditorController: UIViewController {
         let doneBarButton = UIBarButtonItem(title: "保存", style: .done, target: self, action: #selector(saveLog))
         navigationItem.rightBarButtonItem = doneBarButton
         
-        title = "工作记录表"
+        title = "新记录"
         
         log = Log(name: "hello world!", start: Date(), end: Date(), category: .construct, service: .common)
         
