@@ -13,6 +13,10 @@ class LogCell: UICollectionViewCell {
     var log: Log? {
         didSet {
             nameLabel.text = log?.name
+            categoryLabel.text = log?.category.rawValue.spaceFilled
+            categoryLabel.backgroundColor = UIColor(category: log?.category ?? .construct)
+            serviceLabel.text = log?.service.rawValue.spaceFilled
+            serviceLabel.backgroundColor = UIColor(category: log?.category ?? .construct)
         }
     }
     
@@ -26,7 +30,7 @@ class LogCell: UICollectionViewCell {
     let startDateLabel: UILabel = make { l in
         
         let today = Date()
-        l.text = " " + today.formatted + " "
+        l.text = "\(today.formatted) "
         l.font = UIFont.boldSystemFont(ofSize: 14)
         l.textColor = .white
         l.backgroundColor = UIColor.dateLabelColor
@@ -45,6 +49,24 @@ class LogCell: UICollectionViewCell {
         l.layer.masksToBounds = true
     }
     
+    let categoryLabel: UILabel = make { l in
+        l.text = "工作类别"
+        l.font = UIFont.boldSystemFont(ofSize: 14)
+        l.textColor = .white
+        l.backgroundColor = UIColor.dateLabelColor
+        l.layer.cornerRadius = 5
+        l.layer.masksToBounds = true
+    }
+    
+    let serviceLabel: UILabel = make { l in
+        l.text = "业务类型"
+        l.font = UIFont.boldSystemFont(ofSize: 14)
+        l.textColor = .white
+        l.backgroundColor = UIColor.dateLabelColor
+        l.layer.cornerRadius = 5
+        l.layer.masksToBounds = true
+    }
+
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -55,8 +77,16 @@ class LogCell: UICollectionViewCell {
         dateStackView.axis = .horizontal
         dateStackView.spacing = 10
         dateStackView.distribution = .equalCentering
-        let stackView = UIStackView(arrangedSubviews: [nameLabel, dateStackView])
+        
+        let tagStackView = UIStackView(arrangedSubviews: [categoryLabel, serviceLabel])
+        tagStackView.axis = .horizontal
+        tagStackView.spacing = 10
+        tagStackView.distribution = .equalSpacing
+        tagStackView.alignment = .trailing
+        
+        let stackView = UIStackView(arrangedSubviews: [nameLabel, tagStackView, dateStackView])
         nameLabel.setContentHuggingPriority(255, for: .vertical)
+        categoryLabel.setContentHuggingPriority(260, for: .vertical)
         startDateLabel.setContentHuggingPriority(260, for: .vertical)
         endDateLabel.setContentHuggingPriority(260, for: .vertical)
         addSubview(stackView)

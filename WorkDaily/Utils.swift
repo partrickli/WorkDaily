@@ -15,3 +15,24 @@ extension UIColor {
     
     static let dateLabelColor: UIColor = UIColor(red: 220, green: 220, blue: 220)
 }
+
+extension String {
+    var spaceFilled: String {
+        return " \(self) "
+    }
+}
+
+extension UIColor {
+    convenience init(category: Log.Category) {
+        switch category {
+        case .construct:
+            self.init(red: 120, green: 230, blue: 130)
+        case .emergency:
+            self.init(red: 80, green: 30, blue: 100)
+        case .maintanence:
+            self.init(red: 50, green: 120, blue: 230)
+        case .support:
+            self.init(red: 50, green: 90, blue: 87)
+        }
+    }
+}
