@@ -65,3 +65,54 @@ extension Log: Equatable {
             && lhs.category == rhs.category
     }
 }
+
+// Property List
+
+extension Log {
+    
+    typealias Plist = [String: AnyObject]
+    
+    var plistRepresentation: Plist {
+        return [
+            "name": name as AnyObject,
+            "start": start as AnyObject,
+            "end": end as AnyObject,
+            "category": category.rawValue as AnyObject,
+            "service": service.rawValue as AnyObject
+        ]
+    }
+    
+    init(plist: Plist) {
+        self.name = plist["name"] as! String
+        self.start = plist["start"] as! Date
+        self.end = plist["end"] as! Date
+        self.category = Log.Category(rawValue: plist["category"] as! String) ?? .construct
+        self.service = Log.Service(rawValue: plist["service"] as! String) ?? .common
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

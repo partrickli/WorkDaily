@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		C060844A1F3FEB030077BEBA /* LogEditorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06084491F3FEB030077BEBA /* LogEditorView.swift */; };
 		C060844E1F410FBC0077BEBA /* LogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C060844D1F410FBC0077BEBA /* LogCell.swift */; };
+		C06084521F41468B0077BEBA /* ModelController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C06084511F41468B0077BEBA /* ModelController.swift */; };
 		C0E8E2601F3449A600EDF143 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E8E25F1F3449A600EDF143 /* Utils.swift */; };
 		C0E8E2621F3452E400EDF143 /* LogEditorController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E8E2611F3452E400EDF143 /* LogEditorController.swift */; };
 		C0E8E2641F357DBC00EDF143 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0E8E2631F357DBC00EDF143 /* Model.swift */; };
@@ -22,6 +23,7 @@
 /* Begin PBXFileReference section */
 		C06084491F3FEB030077BEBA /* LogEditorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogEditorView.swift; sourceTree = "<group>"; };
 		C060844D1F410FBC0077BEBA /* LogCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogCell.swift; sourceTree = "<group>"; };
+		C06084511F41468B0077BEBA /* ModelController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ModelController.swift; sourceTree = "<group>"; };
 		C0E8E25F1F3449A600EDF143 /* Utils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		C0E8E2611F3452E400EDF143 /* LogEditorController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogEditorController.swift; sourceTree = "<group>"; };
 		C0E8E2631F357DBC00EDF143 /* Model.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
@@ -62,13 +64,21 @@
 			name = View;
 			sourceTree = "<group>";
 		};
-		C060844C1F40011B0077BEBA /* Controller */ = {
+		C060844C1F40011B0077BEBA /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
 				C0FEB9A41F341DB80077D90F /* LogsController.swift */,
 				C0E8E2611F3452E400EDF143 /* LogEditorController.swift */,
 			);
-			name = Controller;
+			name = ViewController;
+			sourceTree = "<group>";
+		};
+		C06084531F4146930077BEBA /* ModelController */ = {
+			isa = PBXGroup;
+			children = (
+				C06084511F41468B0077BEBA /* ModelController.swift */,
+			);
+			name = ModelController;
 			sourceTree = "<group>";
 		};
 		C0FEB9961F341DB80077D90F = {
@@ -92,9 +102,10 @@
 			children = (
 				C0FEB9A21F341DB80077D90F /* AppDelegate.swift */,
 				C0E8E25F1F3449A600EDF143 /* Utils.swift */,
-				C060844C1F40011B0077BEBA /* Controller */,
-				C060844B1F3FEDC50077BEBA /* View */,
 				C06084481F3861D20077BEBA /* Model */,
+				C06084531F4146930077BEBA /* ModelController */,
+				C060844B1F3FEDC50077BEBA /* View */,
+				C060844C1F40011B0077BEBA /* ViewController */,
 				C0FEB9AC1F341DB80077D90F /* Assets.xcassets */,
 				C0FEB9AE1F341DB80077D90F /* LaunchScreen.storyboard */,
 				C0FEB9B11F341DB80077D90F /* Info.plist */,
@@ -183,6 +194,7 @@
 				C060844A1F3FEB030077BEBA /* LogEditorView.swift in Sources */,
 				C0FEB9A31F341DB80077D90F /* AppDelegate.swift in Sources */,
 				C0E8E2601F3449A600EDF143 /* Utils.swift in Sources */,
+				C06084521F41468B0077BEBA /* ModelController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

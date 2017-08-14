@@ -16,7 +16,7 @@ class LogsController: UICollectionViewController {
     
     // model
     
-    var logs:[Log] = []
+    var stateController: StateController?
     
     override func viewDidLoad() {
         
@@ -31,11 +31,6 @@ class LogsController: UICollectionViewController {
         let newLogBarButton = UIBarButtonItem(image: #imageLiteral(resourceName: "add"), style: .done, target: self, action: #selector(addNewLog))
         navigationItem.rightBarButtonItem = newLogBarButton
         
-        
-        logs.append(Log(name: "不知", start: Date(), end: Date(), category: .support, service: .common))
-        
-        // directly switch to LogEdiotrController for test 
-        addNewLog()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
@@ -43,12 +38,12 @@ class LogsController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return logs.count
+        return stateController?.logs.count ?? 0
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier.logCell.rawValue, for: indexPath) as! LogCell
-        cell.log = logs[indexPath.item]
+        cell.log = stateController?.logs[indexPath.item]
         return cell
     }
     
@@ -71,7 +66,7 @@ extension LogsController: UICollectionViewDelegateFlowLayout {
 
 extension LogsController: LogEditorControllerDelegate {
     func save(log: Log) {
-        logs.append(log)
+        stateController?.add(log)
         collectionView?.reloadData()
     }
 
