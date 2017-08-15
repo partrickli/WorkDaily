@@ -70,6 +70,7 @@ class LogEditorView: UIView {
             stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -edgeConstant)
         ]
         NSLayoutConstraint.activate(constrains)
+        
     }
     
     // Sub views
@@ -112,6 +113,5 @@ class LogEditorView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-
 }
 

@@ -26,6 +26,7 @@ class LogCell: UITableViewCell {
         l.text = "hello world"
         l.font = UIFont.boldSystemFont(ofSize: 24)
         l.textColor = .gray
+        l.numberOfLines = 2
     }
     
     
@@ -87,7 +88,7 @@ class LogCell: UITableViewCell {
         stackView.axis = .vertical
         stackView.alignment = .fill
         stackView.spacing = 10
-        let insetWidth: CGFloat = 15
+        let insetWidth: CGFloat = 18
         let stackViewConstraints = [
             stackView.topAnchor.constraint(equalTo: topAnchor, constant: insetWidth),
             stackView.leftAnchor.constraint(equalTo: leftAnchor, constant: insetWidth),

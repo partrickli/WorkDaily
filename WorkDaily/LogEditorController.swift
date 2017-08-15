@@ -27,6 +27,10 @@ class LogEditorController: UIViewController {
         
         log = Log(name: "hello world!", start: Date(), end: Date(), category: .construct, service: .common)
         
+        // set delegate
+        if let editorView = view as? LogEditorView {
+            editorView.nameTextField.delegate = self
+        }
         
     }
     
@@ -57,6 +61,23 @@ class LogEditorController: UIViewController {
 
 protocol LogEditorControllerDelegate: AnyObject {
     func save(log: Log)
+}
+
+
+// UITextFieldDelegate
+
+extension LogEditorController: UITextFieldDelegate {
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        
+        guard textField.text != "" else {
+            return false
+        }
+        
+        textField.resignFirstResponder()
+        return true
+    }
+
 }
 
 
