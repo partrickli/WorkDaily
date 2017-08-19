@@ -41,6 +41,9 @@ class LogsController: UITableViewController {
         return UIStatusBarStyle.lightContent
     }
     
+    
+    // Table view data source
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -55,12 +58,31 @@ class LogsController: UITableViewController {
         return cell
     }
     
+    
+    override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard let logs = stateController?.logs else {
+            return UIView()
+        }
+        
+        let headerView = LogHeaderView(frame: .zero)
+        headerView.logs = logs
+        return headerView
+        
+    }
+    
+    // Table view delegate
+    
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             stateController?.logs.remove(at: indexPath.row)
             tableView.reloadData()
         }
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        addNewLog()
+    }
+    
     
     // adding new work log
     func addNewLog() {
@@ -69,15 +91,10 @@ class LogsController: UITableViewController {
         navigationController?.pushViewController(logEditorController, animated: true)
     }
     
-    
-}
-
-extension LogsController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: view.bounds.width, height: 200)
+    override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
     }
 }
-
 
 extension LogsController: LogEditorControllerDelegate {
     func save(log: Log) {
@@ -87,14 +104,4 @@ extension LogsController: LogEditorControllerDelegate {
 
 }
 
-extension Date {
-    var formatted: String {
-        let formattor = DateFormatter()
-        formattor.locale = Locale(identifier: "zh_CN")
-        formattor.dateStyle = .short
-        formattor.timeStyle = .short
-        
-        return formattor.string(from: self)
-    }
-}
 

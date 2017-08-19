@@ -16,7 +16,7 @@ class LogCell: UITableViewCell {
             categoryLabel.text = log?.category.rawValue.spaceFilled
             categoryLabel.backgroundColor = UIColor(category: log?.category ?? .construct)
             serviceLabel.text = log?.service.rawValue.spaceFilled
-            serviceLabel.backgroundColor = UIColor(category: log?.category ?? .construct)
+            serviceLabel.backgroundColor = UIColor(service: log?.service ?? .business)
             startDateLabel.text = " \(log?.start.formatted ?? "") "
             endDateLabel.text = " \(log?.end.formatted ?? "") "
         }
@@ -24,7 +24,7 @@ class LogCell: UITableViewCell {
     
     let nameLabel: UILabel = make { l in
         l.text = "hello world"
-        l.font = UIFont.boldSystemFont(ofSize: 24)
+        l.font = UIFont.boldSystemFont(ofSize: 16)
         l.textColor = .gray
         l.numberOfLines = 2
     }
@@ -109,7 +109,7 @@ class DateLabel: UILabel {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        font = UIFont.boldSystemFont(ofSize: 16)
+        font = UIFont.boldSystemFont(ofSize: 12)
         textColor = .white
         backgroundColor = UIColor.dateLabelColor
         layer.cornerRadius = 5

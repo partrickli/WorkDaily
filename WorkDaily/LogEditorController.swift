@@ -52,7 +52,6 @@ class LogEditorController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
 
-    // MARK: - Table view data source
 
 }
 
