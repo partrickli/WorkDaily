@@ -25,7 +25,7 @@ class LogEditorController: UIViewController {
         
         title = "新记录"
         
-        log = Log(name: "hello world!", start: Date(), end: Date(), category: .construct, service: .common)
+        log = Log(name: "hello world!", detailedDescription: "", start: Date(), end: Date(), category: .construct, service: .common)
         
         // set delegate
         if let editorView = view as? LogEditorView {

@@ -10,16 +10,25 @@ import UIKit
 
 class LogEditorView: UIView {
     
+    // calculated variable tracing subview value
     var log: Log? {
         
         get {
             guard let name = nameTextField.text else {
                 return nil
             }
+            let detailedDescription = detailedDescriptionTextView.text
 
             let selectedCategry = Log.Category.all[categorySegmentedControll.selectedSegmentIndex]
             let selectedService = Log.Service.all[serviceSegmentedControll.selectedSegmentIndex]
-            return Log(name: name, start: Date(), end: Date(), category: selectedCategry, service: selectedService)
+            return Log(
+                name: name,
+                detailedDescription: detailedDescription ?? "",
+                start: Date(),
+                end: Date(),
+                category: selectedCategry,
+                service: selectedService
+            )
         }
         
         set {
@@ -43,19 +52,18 @@ class LogEditorView: UIView {
         
         let startDateStack = UIStackView(arrangedSubviews: [startDateLabel, startDateTextField])
         let endDateStack = UIStackView(arrangedSubviews: [endDateLabel, endDateTextField])
-        
-        let stackedViews: [UIView] = [
+        let stackView = UIStackView(arrangedSubviews: [
             nameTextField,
+            detailedDescriptionTextView,
             categorySegmentedControll,
             serviceSegmentedControll,
             startDateStack,
             endDateStack
-        ]
+        ])
 
+        detailedDescriptionTextView.heightAnchor.constraint(equalToConstant: 100)
         
-        for view in stackedViews {
-            stackView.addArrangedSubview(view)
-        }
+        
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.alignment = .fill
         stackView.distribution = .fillProportionally
@@ -70,7 +78,7 @@ class LogEditorView: UIView {
             stackView.topAnchor.constraint(equalTo: topAnchor, constant: edgeConstant),
             stackView.leftAnchor.constraint(equalTo: leftAnchor, constant: edgeConstant),
             stackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -edgeConstant)
-//            stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -edgeConstant)
+            //stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -edgeConstant)
         ]
         NSLayoutConstraint.activate(constraints)
         
@@ -81,14 +89,17 @@ class LogEditorView: UIView {
     }
     
     // Sub views
-    let stackView: UIStackView = {
-        let sv = UIStackView()
-        return sv
-    }()
 
     let nameTextField: UITextField = make { tf in
-        tf.placeholder = "浮生偷得半日闲"
+        tf.placeholder = "标题"
     }
+    
+    let detailedDescriptionTextView: UITextView = {
+        let tv = UITextView(frame: CGRect(x: 0, y: 0, width: 100, height: 20))
+        tv.text = "详细描述"
+        tv.isScrollEnabled = false
+        return tv
+    }()
     
     let startDateTextField: DateTextField = make { tf in
     }

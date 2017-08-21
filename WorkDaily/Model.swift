@@ -39,6 +39,7 @@ struct Log {
     }
     
     let name: String
+    let detailedDescription: String
     let start: Date
     let end: Date
     let category: Category
@@ -49,6 +50,7 @@ struct Log {
 extension Log {
     init() {
         self.name = ""
+        self.detailedDescription = ""
         self.start = Date()
         self.end = Date()
         self.category = .construct
@@ -60,6 +62,7 @@ extension Log {
 extension Log: Equatable {
     public static func ==(lhs: Log, rhs: Log) -> Bool {
         return lhs.name == rhs.name
+            && lhs.detailedDescription == rhs.detailedDescription
             && lhs.start == rhs.start
             && lhs.end == rhs.end
             && lhs.category == rhs.category
@@ -75,6 +78,7 @@ extension Log {
     var plistRepresentation: Plist {
         return [
             "name": name as AnyObject,
+            "detailedDescription": detailedDescription as AnyObject,
             "start": start as AnyObject,
             "end": end as AnyObject,
             "category": category.rawValue as AnyObject,
@@ -84,6 +88,7 @@ extension Log {
     
     init(plist: Plist) {
         self.name = plist["name"] as! String
+        self.detailedDescription = plist["detailedDescription"] as! String
         self.start = plist["start"] as! Date
         self.end = plist["end"] as! Date
         self.category = Log.Category(rawValue: plist["category"] as! String) ?? .construct

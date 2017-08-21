@@ -81,23 +81,4 @@ class LogHeaderView: UIView {
 
 
 
-//        let total = NSAttributedString(string: " \(logs.count) ", attributes: [
-//            NSFontAttributeName: UIFont.boldSystemFont(ofSize: 16),
-//            NSForegroundColorAttributeName: UIColor.lightGray
-//            ])
-//
-//        // let tag: Log.Category = .construct
-//
-//
-//        let label = UILabel()
-//        label.attributedText = headerString
-//
-//        let headerView = UIView()
-//        headerView.addSubview(label)
-//        label.topAnchor.constraint(equalTo: headerView.topAnchor, constant: 10)
-//        label.leftAnchor.constraint(equalTo: headerView.leftAnchor, constant: 20)
-//        label.translatesAutoresizingMaskIntoConstraints = false
-//        label.backgroundColor = .green
-//        headerView.backgroundColor = .yellow
-//        return headerView
 

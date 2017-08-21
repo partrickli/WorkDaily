@@ -35,7 +35,11 @@ class LogsController: UITableViewController {
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
         
+        // auto open add for test convenience
+//        addNewLog()
+        
     }
+    
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
@@ -80,9 +84,14 @@ class LogsController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        addNewLog()
+        
+        if let selectedLog = stateController?.logs[indexPath.row] {
+            let logDetailController = LogDetailController()
+            logDetailController.log = selectedLog
+            navigationController?.pushViewController(logDetailController, animated: true)
+        }
+
     }
-    
     
     // adding new work log
     func addNewLog() {
@@ -92,7 +101,7 @@ class LogsController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+        return 70
     }
 }
 
