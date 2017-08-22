@@ -44,4 +44,8 @@ class StateController {
         logs.append(log)
         storageController.save(logs)
     }
+    
+    func saveToStorage() {
+        storageController.save(logs)
+    }
 }

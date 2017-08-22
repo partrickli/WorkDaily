@@ -57,6 +57,7 @@ extension UIColor {
 
 
 extension Date {
+    
     var formatted: String {
         let formattor = DateFormatter()
         formattor.locale = Locale(identifier: "zh_CN")
@@ -65,4 +66,11 @@ extension Date {
         
         return formattor.string(from: self)
     }
+    
+    static func dateFromString(_ string: String) -> Date? {
+        let formattor = DateFormatter()
+        formattor.dateFormat = "yyyy/MM/dd"
+        return formattor.date(from: string)
+    }
+
 }

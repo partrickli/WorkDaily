@@ -21,11 +21,16 @@ class LogEditorView: UIView {
 
             let selectedCategry = Log.Category.all[categorySegmentedControll.selectedSegmentIndex]
             let selectedService = Log.Service.all[serviceSegmentedControll.selectedSegmentIndex]
+            let startDate = Date.dateFromString(startDateTextField.text ?? "") ?? Date()
+            
+            print(startDate)
+            let endDate = Date.dateFromString(endDateTextField.text ?? "") ?? Date()
+
             return Log(
                 name: name,
                 detailedDescription: detailedDescription ?? "",
-                start: Date(),
-                end: Date(),
+                start: startDate,
+                end: endDate,
                 category: selectedCategry,
                 service: selectedService
             )
@@ -43,8 +48,8 @@ class LogEditorView: UIView {
                 categorySegmentedControll.selectedSegmentIndex = index
             }
             
-            startDateLabel.text = newValue?.start.formatted
-            endDateLabel.text = newValue?.end.formatted
+            startDateTextField.text = newValue?.start.formatted
+            endDateTextField.text = newValue?.end.formatted
         }
     }
     

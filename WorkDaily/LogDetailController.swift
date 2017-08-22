@@ -54,6 +54,7 @@ extension LogDetailController: LogEditorControllerDelegate {
     func save(log: Log) {
         self.log = log
         stateController.logs[indexPath.row] = log
+        stateController.saveToStorage()
     }
     
 }

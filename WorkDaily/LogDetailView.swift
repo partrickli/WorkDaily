@@ -36,7 +36,7 @@ class LogDetailView: UIView {
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.alignment = .center
+        stackView.alignment = .fill
         stackView.distribution = .equalSpacing
         stackView.spacing = 30
 
@@ -62,7 +62,8 @@ class LogDetailView: UIView {
         let l = UILabel()
         l.text = "标题"
         l.font = UIFont.preferredFont(forTextStyle: .title1)
-        l.textColor = .gray
+        l.textColor = .black
+        l.textAlignment = .center
         return l
     }()
 
@@ -70,14 +71,16 @@ class LogDetailView: UIView {
     let detailedDescriptionLabel: UILabel = {
         let l = UILabel()
         l.text = "详细描述"
-        l.font = UIFont.boldSystemFont(ofSize: 20)
-        l.textColor = .lightGray
+        l.font = UIFont.preferredFont(forTextStyle: .body)
+        l.numberOfLines = 0
+        l.textColor = .gray
         return l
     }()
     
     let tagLabel: UILabel = {
         let l = UILabel()
         l.text = "tag"
+        l.font = UIFont.preferredFont(forTextStyle: .caption2)
         return l
     }()
     
@@ -109,7 +112,7 @@ class DateView: UIView {
     override func draw(_ rect: CGRect) {
         
         let dateAttributes = [
-            NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14),
+            NSFontAttributeName: UIFont.preferredFont(forTextStyle: .caption1),
             NSForegroundColorAttributeName: UIColor.lightGray
         ]
         
