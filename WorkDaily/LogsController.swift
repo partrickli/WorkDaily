@@ -88,6 +88,8 @@ class LogsController: UITableViewController {
         if let selectedLog = stateController?.logs[indexPath.row] {
             let logDetailController = LogDetailController()
             logDetailController.log = selectedLog
+            logDetailController.indexPath = indexPath
+            logDetailController.stateController = stateController
             navigationController?.pushViewController(logDetailController, animated: true)
         }
 

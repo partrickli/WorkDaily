@@ -11,8 +11,11 @@ import UIKit
 class LogDetailController: UIViewController {
     
     // model
+    var stateController: StateController!
     
     var log: Log!
+    
+    var indexPath: IndexPath!
     
     override func loadView() {
         view = LogDetailView(frame: UIScreen.main.bounds)
@@ -26,13 +29,31 @@ class LogDetailController: UIViewController {
             logDetailedView.log = log
         }
         
-        let editBarButton = UIBarButtonItem(title: "修改", style: .plain, target: self, action: #selector(editCurrentLog))
+        let editBarButton = UIBarButtonItem(title: "修改", style: .plain, target: self, action: #selector(editLog))
         
         navigationItem.rightBarButtonItem = editBarButton
     }
     
-    // bar button
-    func editCurrentLog() {
-        print("edit: \n \(log)")
+    override func viewWillAppear(_ animated: Bool) {
+        if let logDetailedView = view as? LogDetailView {
+            logDetailedView.log = log
+        }
     }
+    
+    // bar button
+    @objc func editLog() {
+        let logEditorController = LogEditorController()
+        logEditorController.log = log
+        logEditorController.logDelegate = self
+        navigationController?.pushViewController(logEditorController, animated: true)
+    }
+    
+}
+
+extension LogDetailController: LogEditorControllerDelegate {
+    func save(log: Log) {
+        self.log = log
+        stateController.logs[indexPath.row] = log
+    }
+    
 }

@@ -32,15 +32,19 @@ class LogEditorView: UIView {
         }
         
         set {
-            nameTextField.text = log?.name
+            nameTextField.text = newValue?.name
+            detailedDescriptionTextView.text = newValue?.detailedDescription
             
-            if let index = Log.Service.all.index(of: log?.service ?? .common) {
+            if let index = Log.Service.all.index(of: newValue?.service ?? .common) {
                 serviceSegmentedControll.selectedSegmentIndex = index
             }
             
-            if let index = Log.Category.all.index(of: log?.category ?? .construct) {
+            if let index = Log.Category.all.index(of: newValue?.category ?? .construct) {
                 categorySegmentedControll.selectedSegmentIndex = index
             }
+            
+            startDateLabel.text = newValue?.start.formatted
+            endDateLabel.text = newValue?.end.formatted
         }
     }
     

@@ -12,7 +12,13 @@ class LogEditorController: UIViewController {
     
     // model
     
-    var log: Log?
+    var log: Log? {
+        didSet {
+            if let editorView = view as? LogEditorView {
+                editorView.log = log
+            }
+        }
+    }
     
     // pass data back to previous view controller
     weak var logDelegate: LogEditorControllerDelegate?
@@ -25,7 +31,6 @@ class LogEditorController: UIViewController {
         
         title = "新记录"
         
-        log = Log(name: "hello world!", detailedDescription: "", start: Date(), end: Date(), category: .construct, service: .common)
         
         // set delegate
         if let editorView = view as? LogEditorView {
