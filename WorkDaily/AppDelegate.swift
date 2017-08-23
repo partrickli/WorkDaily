@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // config navigation bar appearance
         let navigationBarAppearance = UINavigationBar.appearance()
         navigationBarAppearance.isTranslucent = false
-        navigationBarAppearance.barTintColor = UIColor(red: 0x15, green: 0x65, blue: 0xC0)
+        navigationBarAppearance.barTintColor =  UIColor(red: 0x15, green: 0x65, blue: 0xC0)
         navigationBarAppearance.tintColor = .white
         
         // navigation bar title font and color

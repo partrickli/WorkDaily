@@ -13,39 +13,38 @@ class LogCell: UITableViewCell {
     var log: Log? {
         didSet {
             nameLabel.text = log?.name
+            detailedDescriptionLabel.text = log?.detailedDescription
             categoryLabel.text = log?.category.rawValue.spaceFilled
             categoryLabel.backgroundColor = UIColor(category: log?.category ?? .construct)
             serviceLabel.text = log?.service.rawValue.spaceFilled
             serviceLabel.backgroundColor = UIColor(service: log?.service ?? .business)
-            startDateLabel.text = " \(log?.start.formatted ?? "") "
-            endDateLabel.text = " \(log?.end.formatted ?? "") "
+            dateLabel.text = " \(log?.start.formatted ?? "")  ->  \(log?.end.formatted ?? "")"
         }
     }
     
     let nameLabel: UILabel = make { l in
         l.text = "hello world"
-        l.font = UIFont.boldSystemFont(ofSize: 16)
-        l.textColor = .gray
-        l.numberOfLines = 2
+        l.font = UIFont.preferredFont(forTextStyle: .title2)
+        l.numberOfLines = 1
     }
     
+    let detailedDescriptionLabel: UILabel = {
+        let l = UILabel()
+        l.font = UIFont.preferredFont(forTextStyle: .body)
+        l.textColor = .gray
+        return l
+    }()
     
-    let startDateLabel: DateLabel = make { l in
+    let dateLabel: DateLabel = make { l in
         
         let today = Date()
         l.text = "\(today.formatted) "
 
     }
     
-    let endDateLabel: DateLabel = make { l in
-        
-        let today = Date() + 3600 * 24
-        l.text = " " + today.formatted + " "
-    }
-    
     let categoryLabel: UILabel = make { l in
         l.text = "工作类别"
-        l.font = UIFont.boldSystemFont(ofSize: 14)
+        l.font = UIFont.preferredFont(forTextStyle: .caption1)
         l.textColor = .white
         l.backgroundColor = UIColor.dateLabelColor
         l.layer.cornerRadius = 5
@@ -54,7 +53,7 @@ class LogCell: UITableViewCell {
     
     let serviceLabel: UILabel = make { l in
         l.text = "业务类型"
-        l.font = UIFont.boldSystemFont(ofSize: 14)
+        l.font = UIFont.preferredFont(forTextStyle: .caption1)
         l.textColor = .white
         l.backgroundColor = UIColor.dateLabelColor
         l.layer.cornerRadius = 5
@@ -67,26 +66,21 @@ class LogCell: UITableViewCell {
         
         backgroundColor = .white
         
-        let dateStackView = UIStackView(arrangedSubviews: [startDateLabel, endDateLabel, categoryLabel])
-        dateStackView.axis = .horizontal
-        dateStackView.spacing = 10
-        dateStackView.distribution = .equalCentering
-        
-        let tagStackView = UIStackView(arrangedSubviews: [categoryLabel, serviceLabel])
+        let tagStackView = UIStackView(arrangedSubviews: [nameLabel, categoryLabel, serviceLabel])
         tagStackView.axis = .horizontal
         tagStackView.spacing = 10
         tagStackView.distribution = .equalSpacing
         tagStackView.alignment = .trailing
+        nameLabel.setContentHuggingPriority(255, for: .horizontal)
+        categoryLabel.setContentHuggingPriority(260, for: .horizontal)
+        serviceLabel.setContentHuggingPriority(260, for: .horizontal)
         
-        let stackView = UIStackView(arrangedSubviews: [nameLabel, tagStackView, dateStackView])
-        nameLabel.setContentHuggingPriority(255, for: .vertical)
+        let stackView = UIStackView(arrangedSubviews: [tagStackView, detailedDescriptionLabel, dateLabel])
         categoryLabel.setContentHuggingPriority(260, for: .vertical)
-        startDateLabel.setContentHuggingPriority(260, for: .vertical)
-        endDateLabel.setContentHuggingPriority(260, for: .vertical)
         addSubview(stackView)
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-        stackView.alignment = .fill
+        stackView.alignment = .leading
         stackView.spacing = 10
         let insetWidth: CGFloat = 18
         let stackViewConstraints = [
@@ -109,11 +103,8 @@ class DateLabel: UILabel {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        font = UIFont.boldSystemFont(ofSize: 12)
-        textColor = .white
-        backgroundColor = UIColor.dateLabelColor
-        layer.cornerRadius = 5
-        layer.masksToBounds = true
+        font = UIFont.preferredFont(forTextStyle: .footnote)
+        textColor = .lightGray
     }
     
     required init?(coder aDecoder: NSCoder) {

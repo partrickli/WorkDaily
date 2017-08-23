@@ -15,7 +15,7 @@ extension UIColor {
     
     static let dateLabelColor: UIColor = UIColor(red: 220, green: 220, blue: 220)
     
-    static let tableHeaderBackgroundColor = UIColor(red: 250, green: 230, blue: 240)
+    static let tableHeaderBackgroundColor = UIColor(red: 0x7D, green: 0xD1, blue: 0xF0)
     
 }
 

@@ -60,7 +60,9 @@ class LogEditorView: UIView {
         
         
         let startDateStack = UIStackView(arrangedSubviews: [startDateLabel, startDateTextField])
+        startDateStack.distribution = .equalCentering
         let endDateStack = UIStackView(arrangedSubviews: [endDateLabel, endDateTextField])
+        endDateStack.distribution = .equalCentering
         let stackView = UIStackView(arrangedSubviews: [
             nameTextField,
             detailedDescriptionTextView,
@@ -68,15 +70,12 @@ class LogEditorView: UIView {
             serviceSegmentedControll,
             startDateStack,
             endDateStack
-        ])
-
-        detailedDescriptionTextView.heightAnchor.constraint(equalToConstant: 100)
-        
+        ])        
         
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.alignment = .fill
         stackView.distribution = .fillProportionally
-        stackView.spacing = 20
+        stackView.spacing = 30
         stackView.axis = .vertical
         
         addSubview(stackView)
@@ -84,7 +83,7 @@ class LogEditorView: UIView {
         // Constraints
         let edgeConstant: CGFloat = 30
         let constraints = [
-            stackView.topAnchor.constraint(equalTo: topAnchor, constant: edgeConstant),
+            stackView.topAnchor.constraint(equalTo: topAnchor, constant: edgeConstant + 10),
             stackView.leftAnchor.constraint(equalTo: leftAnchor, constant: edgeConstant),
             stackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -edgeConstant)
             //stackView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -edgeConstant)
@@ -94,18 +93,24 @@ class LogEditorView: UIView {
         // config date text field editing
         startDateTextField.delegate = self
         endDateTextField.delegate = self
+        detailedDescriptionTextView.delegate = self
 
     }
     
     // Sub views
 
-    let nameTextField: UITextField = make { tf in
+    let nameTextField: UITextField = {
+        let tf = UITextField()
+        tf.font = UIFont.preferredFont(forTextStyle: .title1)
         tf.placeholder = "标题"
-    }
+        return tf
+    }()
     
     let detailedDescriptionTextView: UITextView = {
         let tv = UITextView(frame: CGRect(x: 0, y: 0, width: 100, height: 20))
         tv.text = "详细描述"
+        tv.textColor = .lightGray
+        tv.font = UIFont.preferredFont(forTextStyle: .body)
         tv.isScrollEnabled = false
         return tv
     }()
@@ -167,6 +172,15 @@ extension LogEditorView: UITextFieldDelegate {
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         datePicker.removeTarget(textField, action: #selector(DateTextField.onDateChange(_:)), for: .valueChanged)
+    }
+}
+
+extension LogEditorView: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.text == "详细描述" {
+            textView.text = ""
+        }
+        textView.textColor = .black
     }
 }
 

@@ -18,7 +18,7 @@ class LogHeaderView: UIView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        backgroundColor = UIColor.tableHeaderBackgroundColor
+        backgroundColor = UIColor.lightGray
     }
     
     override func draw(_ rect: CGRect) {
@@ -29,12 +29,12 @@ class LogHeaderView: UIView {
             
             let numberAttributes = [
                 NSFontAttributeName: UIFont.boldSystemFont(ofSize: 28),
-                NSForegroundColorAttributeName: UIColor.gray
+                NSForegroundColorAttributeName: UIColor.white
             ]
             
             let descriptionAttributes = [
                 NSFontAttributeName: UIFont.boldSystemFont(ofSize: 14),
-                NSForegroundColorAttributeName: UIColor.lightGray
+                NSForegroundColorAttributeName: UIColor.white
             ]
             
             // total count

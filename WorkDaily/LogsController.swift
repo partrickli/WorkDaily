@@ -74,7 +74,6 @@ class LogsController: UITableViewController {
         let headerView = LogHeaderView(frame: .zero)
         headerView.logs = logs
         return headerView
-        
     }
     
     // Table view delegate

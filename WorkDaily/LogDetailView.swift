@@ -17,7 +17,8 @@ class LogDetailView: UIView {
             dateView.start = log.start
             dateView.end = log.end
 
-            tagLabel.text = [log.service.rawValue, log.category.rawValue].joined(separator: " ")
+            serviceLabel.text = "业务类型：\(log.service.rawValue)"
+            categoryLabel.text = "业务类型：\(log.category.rawValue)"
         }
     }
     
@@ -30,7 +31,8 @@ class LogDetailView: UIView {
             nameLabel,
             detailedDescriptionLabel,
             dateView,
-            tagLabel
+            serviceLabel,
+            categoryLabel
         ])
         
         
@@ -43,7 +45,7 @@ class LogDetailView: UIView {
         addSubview(stackView)
         
         let customConstraints = [
-            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            stackView.topAnchor.constraint(equalTo: topAnchor, constant: 30),
             stackView.leftAnchor.constraint(equalTo: leftAnchor, constant: 20),
             stackView.rightAnchor.constraint(equalTo: rightAnchor, constant: -20),
             dateView.heightAnchor.constraint(equalToConstant: 20),
@@ -77,12 +79,22 @@ class LogDetailView: UIView {
         return l
     }()
     
-    let tagLabel: UILabel = {
+    let serviceLabel: UILabel = {
         let l = UILabel()
-        l.text = "tag"
-        l.font = UIFont.preferredFont(forTextStyle: .caption2)
+        l.text = "业务类型"
+        l.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        l.textColor = .gray
         return l
     }()
+    
+    let categoryLabel: UILabel = {
+        let l = UILabel()
+        l.text = "工作属性"
+        l.font = UIFont.preferredFont(forTextStyle: .subheadline)
+        l.textColor = .gray
+        return l
+    }()
+
     
     let dateView: DateView = {
         let v = DateView(start: Date(), end: Date())
@@ -112,25 +124,27 @@ class DateView: UIView {
     override func draw(_ rect: CGRect) {
         
         let dateAttributes = [
-            NSFontAttributeName: UIFont.preferredFont(forTextStyle: .caption1),
-            NSForegroundColorAttributeName: UIColor.lightGray
+            NSFontAttributeName: UIFont.preferredFont(forTextStyle: .headline),
+            NSForegroundColorAttributeName: UIColor.gray
         ]
         
-        let connectorAttributes = [
-            NSFontAttributeName: UIFont.systemFont(ofSize: 12),
-            NSForegroundColorAttributeName: UIColor.gray
+        let decorationAttributes = [
+            NSFontAttributeName: UIFont.preferredFont(forTextStyle: .subheadline),
+            NSForegroundColorAttributeName: UIColor.lightGray
         ]
 
         
-        let attributedString = NSMutableAttributedString(string: start.formatted, attributes: dateAttributes)
+        let dateString = NSMutableAttributedString(string: "起止时间：", attributes: decorationAttributes)
         
-        let connector = NSAttributedString(string: " -> ", attributes: connectorAttributes
-        )
+        let startDate = NSAttributedString(string: start.formatted, attributes: dateAttributes)
+        
+        let connector = NSAttributedString(string: " -> ", attributes: dateAttributes)
         
         let endDate = NSAttributedString(string: end.formatted, attributes: dateAttributes)
-        attributedString.append(connector)
-        attributedString.append(endDate)
-        attributedString.draw(at: .zero)
+        dateString.append(startDate)
+        dateString.append(connector)
+        dateString.append(endDate)
+        dateString.draw(at: .zero)
     }
 }
 
