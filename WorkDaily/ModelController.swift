@@ -48,4 +48,10 @@ class StateController {
     func saveToStorage() {
         storageController.save(logs)
     }
+    
+    func reorder() {
+        logs.sort { lhs, rhs in
+            return lhs.category > rhs.category
+        }
+    }
 }

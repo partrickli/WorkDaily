@@ -96,6 +96,15 @@ extension Log {
     }
 }
 
+// Comparable
+
+extension Log.Category: Comparable {
+    
+    public static func <(lhs: Log.Category, rhs: Log.Category) -> Bool {
+        return lhs.rawValue < rhs.rawValue
+    }
+
+}
 
 
 
