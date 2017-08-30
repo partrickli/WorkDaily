@@ -29,7 +29,9 @@ class LogsController: UITableViewController {
         // Right side bar buttom item for adding new work log
 
         let newLogBarButton = UIBarButtonItem(image: #imageLiteral(resourceName: "add"), style: .done, target: self, action: #selector(addNewLog))
-        let reorderBarButton = UIBarButtonItem(title: "排序", style: .plain, target: self, action: #selector(reorderLogs))
+        
+        let currentOrder = stateController?.logsOrder.description
+        let reorderBarButton = UIBarButtonItem(title: currentOrder, style: .plain, target: self, action: #selector(reorderLogs))
         navigationItem.rightBarButtonItems = [reorderBarButton, newLogBarButton]
         
         // Auto resize table view cell height
@@ -107,6 +109,7 @@ class LogsController: UITableViewController {
     
     func reorderLogs() {
         stateController?.reorder()
+        navigationItem.rightBarButtonItems?.first?.title = stateController?.logsOrder.description
         tableView.reloadData()
     }
     

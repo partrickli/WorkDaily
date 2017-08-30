@@ -32,8 +32,65 @@ class StorageController {
 
 
 class StateController {
+    
+    enum OrderBy {
+        case category
+        case service
+        case name
+        case date
+        
+        mutating func toggle() {
+            switch self {
+            case .category:
+                self = .service
+            case .service:
+                self = .name
+            case .name:
+                self = .date
+            case .date:
+                self = .category
+            }
+        }
+        
+        var description: String {
+            switch self {
+            case .category:
+                return "工作"
+            case .date:
+                return "日期"
+            case .name:
+                return "标题"
+            case .service:
+                return "业务"
+            }
+        }
+        
+        var comparation: (Log, Log) -> Bool {
+            switch self {
+            case .category:
+                return { lhs, rhs in
+                    return lhs.category.rawValue > rhs.category.rawValue
+                }
+            case .service:
+                return { lhs, rhs in
+                    return lhs.service.rawValue > rhs.service.rawValue
+                }
+            case .name:
+                return { lhs, rhs in
+                    return lhs.name > rhs.name
+                }
+            case .date:
+                return { lhs, rhs in
+                    return lhs.start < rhs.start
+                }
+            }
+        }
+    }
+
+    
     private let storageController: StorageController
     var logs: [Log]
+    var logsOrder = OrderBy.category
     
     init(storageController: StorageController) {
         self.storageController = storageController
@@ -50,8 +107,7 @@ class StateController {
     }
     
     func reorder() {
-        logs.sort { lhs, rhs in
-            return lhs.category > rhs.category
-        }
+        logsOrder.toggle()
+        logs.sort(by: logsOrder.comparation)
     }
 }
